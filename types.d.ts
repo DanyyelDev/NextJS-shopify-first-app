@@ -5,6 +5,7 @@ export interface ErrorPageProrps {
 
 type ProductType = {
     id: string;
+    gql_id: string
     title: string;
     description: string;
     price: number;

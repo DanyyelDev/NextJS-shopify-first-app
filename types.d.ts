@@ -38,3 +38,11 @@ interface SmartCollection {
 }
 
 type Collection = Pick<SmartCollection, "id" | "handle" | "title">;
+
+type CustomerAccessTokenCreate = {
+    customerAccessToken: {
+        accessToken: string;
+        expiresAt: string;
+    },
+    customerUserErrors: []
+}

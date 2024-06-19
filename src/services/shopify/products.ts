@@ -9,7 +9,10 @@ export const getProducts = async (id?: string): Promise <ProductType[]> => {
       const response = await fetch(apiUrl, {
         headers: new Headers({
           'X-Shopify-Access-Token': env.SHOPIFY_TOKEN || ""
-        })
+        }),
+        next: {
+          revalidate: 60
+        }
       })
       const { products } = await response.json()
 
@@ -30,4 +33,22 @@ export const getProducts = async (id?: string): Promise <ProductType[]> => {
     } catch (error) {
       throw error
     }
+  }
+
+  export const getMainProducts = async () => {
+    const response = await fetch(shopifyUrls.products.mainProducts, {
+      headers: new Headers({
+        'X-Shopify-Access-Token': env.SHOPIFY_TOKEN
+      }),
+      next: {
+        revalidate: 10
+      }
+     /* next: {
+      tags: ['main-products']
+     } */
+    })
+  
+    const {products} = await response.json()
+  
+    return products
   }
